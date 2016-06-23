@@ -1,4 +1,7 @@
 #!/bin/bash
+# TODO: add ability to specify multiple databags/items.
+# TODO: add ability to specify all.
+# TODO: add usage and examples.
 
 BLOCK=$1
 TARGET=$2
