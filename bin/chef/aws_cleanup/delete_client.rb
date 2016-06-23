@@ -3,14 +3,16 @@
 # Created: 06/10/2016
 # Last Update: 06/23/2016
 # Overview 
-# Takes a list of all chef nodes that use AWS instance ids as their names and compares it to a list of all running AWS instances in a given account. If there are instances in chef that are not running in AWS, it will delete those chef clients/nodes. Useful for some one off cleanup, but not a good solution as a long term de-registration/cleanup plan.
+# Takes a list of all chef nodes that use AWS instance ids as their names and compares it to a list of all running AWS instances 
+# in a given account. If there are instances in chef that are not running in AWS, it will delete those chef clients/nodes. 
+# Useful for some one off cleanup, but not a good solution as a long term de-registration/cleanup plan. Tailor to environment needs.
 
 #TODO: get rid of the manual steps
 
 =begin
 ** The following commands must be run within the same directory as this script **
 1. Switch to the appropriate knife block
-2. Generate a chef_nodes.json file with a command similare to the following (the i-* ensures only nodes that are in an ASG are searched for)
+2. Generate a chef_nodes.txt file with a command similare to the following (the i-* ensures only nodes that are in an ASG are searched for)
   `knife search node 'name:i-*' -i > chef_nodes.txt`
 3. Generate a aws_instances.txt file using a command like the following (gets active aws instances)
   `AWS_ACCESS_KEY_ID=$<ENV>_AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$<ENV>_AWS_SECRET_ACCESS_KEY aws ec2 describe-instances | jq -r ".Reservations[].Instances[] | select(.State.Name == \"running\") | .InstanceId" > aws_instances.txt`
